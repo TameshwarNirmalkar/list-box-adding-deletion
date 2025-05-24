@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import React, { memo, useCallback } from "react";
 
 interface TitleI {
   id: number;
@@ -23,8 +23,8 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList 
   );
 
   const onItemDeleteHandler = useCallback(
-    (item: any) => {
-      onItemDelete(item);
+    (e: React.SyntheticEvent) => {
+      onItemDelete(e);
     },
     [onItemDelete]
   );
@@ -68,7 +68,7 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList 
           <div className="flex items-center justify-between px-2 text-base font-medium text-gray-700">
             <div>Event List</div>
             <div>
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-600 text-white">
+              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-600 text-white" onClick={onItemDeleteHandler}>
                 <svg
                   className="h-5 w-5"
                   aria-hidden="true"
