@@ -23,15 +23,8 @@ const AddListWrapper = () => {
     { label: "title 7", id: 7, isComplete: false, description: "Hello how are you?" },
   ]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  //   const tList = useMemo(() => {
-  //     return [
-  //   { label: "title 1", id: 1, isComplete: false },
-  //   { label: "title 2", id: 2, isComplete: false },
-  //   { label: "title 3", id: 3, isComplete: false },
-  //     ];
-  //   }, []);
 
-  const onItemChangeHandler = (item: any) => {
+  const onItemChangeHandler = useCallback((item: any) => {
     // const hasId = selectedIds.includes(item.id);
     // console.log(hasId, "selectedIds", selectedIds);
     // if (hasId) {
@@ -46,7 +39,7 @@ const AddListWrapper = () => {
       idsRef.current = [...idsRef.current, item.id];
     }
     setSelectedIds(idsRef.current);
-  };
+  }, []);
 
   const onItemDeleteHandler = useCallback(
     (e: React.SyntheticEvent) => {

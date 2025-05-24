@@ -63,7 +63,7 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList 
         </div>
       </div> */}
 
-      <div className="flex h-screen w-full flex-col justify-center gap-y-2">
+      <div className="flex w-full flex-col justify-center gap-y-2">
         <div className="w-[300px] rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100">
           <div className="flex items-center justify-between px-2 text-base font-medium text-gray-700">
             <div>Event List</div>
