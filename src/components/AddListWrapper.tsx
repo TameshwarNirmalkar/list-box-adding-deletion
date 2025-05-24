@@ -1,8 +1,10 @@
 "use client";
 import AddListComponent from "@/components/AddList";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 const AddListWrapper = () => {
+  const idsRef = useRef<number[]>([]);
+
   useEffect(() => {
     console.log("Mount component");
 
@@ -25,21 +27,22 @@ const AddListWrapper = () => {
   //     ];
   //   }, []);
 
-  const onItemChangeHandler = useCallback(
-    (item: any) => {
-      //   console.log("onItemChangeHandler", tList);
-      //   const newList = tList.map((el) => (el.id === item.id ? { ...el, isComplete: !item.isComplete } : { ...el }));
-      //   console.log("newList", newList);
-      //   setTList(newList);
-      const hasId = selectedIds.includes(item.id);
-      if (hasId) {
-        setSelectedIds(selectedIds.filter((id: number) => id !== item.id));
-      } else {
-        setSelectedIds([...selectedIds, item.id]);
-      }
-    },
-    [selectedIds]
-  );
+  const onItemChangeHandler = (item: any) => {
+    // const hasId = selectedIds.includes(item.id);
+    // console.log(hasId, "selectedIds", selectedIds);
+    // if (hasId) {
+    //   setSelectedIds((oldState) => [...oldState.filter((id: number) => id !== item.id)]);
+    // } else {
+    //   setSelectedIds((oldIds) => [...oldIds, item.id]);
+    // }
+    const hasId = idsRef.current.includes(item.id);
+    if (hasId) {
+      idsRef.current = idsRef.current.filter((id: number) => id !== item.id);
+    } else {
+      idsRef.current = [...idsRef.current, item.id];
+    }
+    setSelectedIds(idsRef.current);
+  };
 
   const onItemDeleteHandler = useCallback((item: any) => {
     console.log("onItemDeleteHandler", item);
@@ -47,8 +50,7 @@ const AddListWrapper = () => {
 
   return (
     <>
-      {JSON.stringify(selectedIds)}
-      <AddListComponent titleList={tList} onItemChange={onItemChangeHandler} onItemDelete={onItemDeleteHandler} />
+      <AddListComponent titleList={tList} selectedList={selectedIds} onItemChange={onItemChangeHandler} onItemDelete={onItemDeleteHandler} />
     </>
   );
 };

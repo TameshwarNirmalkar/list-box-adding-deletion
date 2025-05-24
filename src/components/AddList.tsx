@@ -10,9 +10,10 @@ interface AddListI {
   onItemDelete: (item: any) => void;
   onItemChange: (item: any) => void;
   titleList: TitleI[];
+  selectedList: number[];
 }
 
-const AddListComponent = ({ titleList, onItemChange, onItemDelete }: AddListI) => {
+const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList }: AddListI) => {
   const onItemChangeHandler = useCallback(
     (item: any) => {
       onItemChange(item);
@@ -32,7 +33,7 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete }: AddListI) =
       {titleList.map((title: TitleI) => {
         return (
           <li key={title.id} className="flex justify-between hover:bg-gray-600 hover:text-white-700 w-full px-4 py-2 border-gray-200 dark:border-gray-600">
-            <span className={`text-sm cursor-pointer ${title.isComplete ? "text-red-500" : ""}`} onClick={() => onItemChangeHandler(title)}>
+            <span className={`text-sm cursor-pointer ${selectedList.includes(title.id) ? "text-red-500" : ""}`} onClick={() => onItemChangeHandler(title)}>
               {title.label}
             </span>
             <span
