@@ -14,9 +14,13 @@ const AddListWrapper = () => {
   }, []);
 
   const [tList, setTList] = useState([
-    { label: "title 1", id: 1, isComplete: false },
-    { label: "title 2", id: 2, isComplete: false },
-    { label: "title 3", id: 3, isComplete: false },
+    { label: "title 1", id: 1, isComplete: false, description: "Hello how are you?" },
+    { label: "title 2", id: 2, isComplete: false, description: "I am good" },
+    { label: "title 3", id: 3, isComplete: false, description: "Hello how are you?" },
+    { label: "title 4", id: 4, isComplete: false, description: "Hello how are you?" },
+    { label: "title 5", id: 5, isComplete: false, description: "Hello how are you?" },
+    { label: "title 6", id: 6, isComplete: false, description: "Hello how are you?" },
+    { label: "title 7", id: 7, isComplete: false, description: "Hello how are you?" },
   ]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   //   const tList = useMemo(() => {
