@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { memo, useCallback, useId, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 
 interface TitleI {
   id: number;
@@ -36,10 +36,14 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList,
   );
 
   const handleOk = async () => {
-    // setIsModalOpen(false);
-    const val = await eventForm.getFieldsValue(true);
-    console.log("Value: ", val);
-    onAddEvent({ ...val, isComplete: false, id: useId });
+    try {
+      const val = await eventForm.validateFields();
+      onAddEvent({ ...val, isComplete: false, id: Math.random() });
+      setIsModalOpen(false);
+    } catch (error) {
+    } finally {
+      eventForm.resetFields();
+    }
   };
 
   const handleCancel = () => {
@@ -201,10 +205,10 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList,
         onCancel={handleCancel}
       >
         <Form initialValues={{}} name="eventForm" form={eventForm}>
-          <Form.Item name={"label"}>
+          <Form.Item name={"label"} rules={[{ required: true, message: "Please input label" }]}>
             <Input />
           </Form.Item>
-          <Form.Item name={"description"}>
+          <Form.Item name={"description"} rules={[{ required: true, message: "Please input description" }]}>
             <Input />
           </Form.Item>
         </Form>

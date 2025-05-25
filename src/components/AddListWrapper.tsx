@@ -43,7 +43,6 @@ const AddListWrapper = () => {
 
   const onItemDeleteHandler = useCallback(
     (e: React.SyntheticEvent) => {
-      console.log("onItemDeleteHandler", selectedIds);
       setTList((oldState) => [...tList.filter((item: any) => !selectedIds.includes(item.id))]);
       idsRef.current = [];
       setSelectedIds([]);
