@@ -51,9 +51,19 @@ const AddListWrapper = () => {
     [selectedIds]
   );
 
+  const onAddEventHandler = useCallback((item: any) => {
+    setTList((prevS) => [...[item], ...prevS]);
+  }, []);
+
   return (
     <>
-      <AddListComponent titleList={tList} selectedList={selectedIds} onItemChange={onItemChangeHandler} onItemDelete={onItemDeleteHandler} />
+      <AddListComponent
+        titleList={tList}
+        selectedList={selectedIds}
+        onItemChange={onItemChangeHandler}
+        onItemDelete={onItemDeleteHandler}
+        onAddEvent={onAddEventHandler}
+      />
     </>
   );
 };

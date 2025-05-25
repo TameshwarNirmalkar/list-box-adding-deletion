@@ -1,4 +1,5 @@
-import React, { memo, useCallback } from "react";
+import { Button, Form, Input, Modal } from "antd";
+import React, { memo, useCallback, useId, useState } from "react";
 
 interface TitleI {
   id: number;
@@ -10,11 +11,16 @@ interface TitleI {
 interface AddListI {
   onItemDelete: (item: any) => void;
   onItemChange: (item: any) => void;
+  onAddEvent: (item: TitleI) => void;
   titleList: TitleI[];
   selectedList: number[];
 }
 
-const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList }: AddListI) => {
+const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList, onAddEvent }: AddListI) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const [eventForm] = Form.useForm();
+
   const onItemChangeHandler = useCallback(
     (item: any) => {
       onItemChange(item);
@@ -28,6 +34,18 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList 
     },
     [onItemDelete]
   );
+
+  const handleOk = async () => {
+    // setIsModalOpen(false);
+    const val = await eventForm.getFieldsValue(true);
+    console.log("Value: ", val);
+    onAddEvent({ ...val, isComplete: false, id: useId });
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    eventForm.resetFields();
+  };
 
   return (
     <div>
@@ -161,9 +179,36 @@ const AddListComponent = ({ titleList, onItemChange, onItemDelete, selectedList 
         </div>
 
         <div className="flex w-[300px] justify-start gap-x-3 rounded-lg border border-gray-700 bg-gray-700 px-4 py-2">
-          <p className="text-sm text-white">Add +</p>
+          {/* <p className="text-sm text-white">Add +</p> */}
+          <Button
+            type="primary"
+            color="orange"
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+          >
+            Button
+          </Button>
         </div>
       </div>
+      <Modal
+        title="Add Events"
+        closable={{ "aria-label": "Custom Close Button" }}
+        maskClosable={false}
+        open={isModalOpen}
+        centered={true}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Form initialValues={{}} name="eventForm" form={eventForm}>
+          <Form.Item name={"label"}>
+            <Input />
+          </Form.Item>
+          <Form.Item name={"description"}>
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
