@@ -1,5 +1,7 @@
+import customTheme from "@/theme/themeConfig";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "@ant-design/v5-patch-for-react-19";
+import { ConfigProvider } from "antd";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -30,9 +32,11 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <title>List Tutorial</title>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AntdRegistry>{children}</AntdRegistry>
-      </body>
+      <ConfigProvider theme={customTheme}>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <AntdRegistry>{children}</AntdRegistry>
+        </body>
+      </ConfigProvider>
     </html>
   );
 }

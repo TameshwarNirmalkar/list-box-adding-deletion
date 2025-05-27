@@ -12,8 +12,8 @@ export default function DashboardPage() {
     setCurrentTime(now.toLocaleTimeString());
   };
   return (
-    <Row>
-      <Col span={12} push={12}>
+    <Row suppressHydrationWarning={true}>
+      <Col span={8}>
         {currentTime}
         <Button type="primary" color="danger" onClick={handleClick}>
           Get Current Time
@@ -21,9 +21,7 @@ export default function DashboardPage() {
 
         <DateTimeComponent datetime={`abdfdsfa ::`} />
       </Col>
-      <Col span={12} pull={12}>
-        col-6 col-pull-18
-      </Col>
+      <Col span={16}>col-6 col-pull-18</Col>
     </Row>
   );
 }
